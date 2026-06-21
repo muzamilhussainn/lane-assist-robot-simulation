@@ -1,0 +1,16 @@
+material Road/Lane
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        texture lane.png
+        scale 1 1
+      }
+    }
+  }
+}
+

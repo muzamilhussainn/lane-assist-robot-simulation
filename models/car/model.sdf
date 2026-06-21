@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="car">
+    <static>false</static>
+
+    <!-- ================= BASE ================= -->
+    <link name="base_link">
+      <pose>0 0 0.15 0 0 0</pose>
+      <inertial>
+        <mass>5.0</mass>
+        <inertia>
+          <ixx>0.2</ixx><iyy>0.2</iyy><izz>0.2</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <box><size>0.6 0.35 0.15</size></box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box><size>0.6 0.35 0.15</size></box>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- ================= LEFT WHEEL ================= -->
+    <link name="left_wheel">
+      <pose>0 0.17 0.06 1.5708 0 0</pose> <!-- rotate cylinder -->
+      <inertial>
+        <mass>0.3</mass>
+        <inertia>
+          <ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.06</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.06</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- ================= RIGHT WHEEL ================= -->
+    <link name="right_wheel">
+      <pose>0 -0.17 0.06 1.5708 0 0</pose>
+      <inertial>
+        <mass>0.3</mass>
+        <inertia>
+          <ixx>0.001</ixx><iyy>0.001</iyy><izz>0.001</izz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>0.06</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>0.06</radius>
+            <length>0.04</length>
+          </cylinder>
+        </geometry>
+      </visual>
+    </link>
+
+    <!-- ================= JOINTS ================= -->
+    <joint name="left_wheel_joint" type="continuous">
+      <parent>base_link</parent>
+      <child>left_wheel</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+      </axis>
+    </joint>
+
+    <joint name="right_wheel_joint" type="continuous">
+      <parent>base_link</parent>
+      <child>right_wheel</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+      </axis>
+    </joint>
+
+    <!-- ================= DIFF DRIVE ================= -->
+    <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+      <leftJoint>left_wheel_joint</leftJoint>
+      <rightJoint>right_wheel_joint</rightJoint>
+      <wheelSeparation>0.34</wheelSeparation>
+      <wheelDiameter>0.12</wheelDiameter>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <commandTopic>/cmd_vel</commandTopic>
+      <odometryTopic>/odom</odometryTopic>
+      <updateRate>50</updateRate>
+      <publishTf>true</publishTf>
+    </plugin>
+
+  </model>
+</sdf>

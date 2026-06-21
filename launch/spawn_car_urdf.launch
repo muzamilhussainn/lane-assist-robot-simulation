@@ -1,0 +1,19 @@
+<launch>
+
+  <!-- Load URDF directly (no xacro) -->
+  <param name="robot_description" textfile="$(find project)/urdf/ackermann_car.urdf" />
+
+  <!-- Publish TF -->
+  <node pkg="robot_state_publisher"
+        type="robot_state_publisher"
+        name="robot_state_publisher"
+        output="screen"/>
+
+  <!-- Spawn in Gazebo -->
+  <node name="spawn_car"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-urdf -param robot_description -model ackermann_car -x 6 -y 0 -z 0.2"
+        output="screen"/>
+
+</launch>

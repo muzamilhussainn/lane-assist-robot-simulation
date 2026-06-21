@@ -1,0 +1,5 @@
+<launch>
+  <node name="spawn_camera" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/simple_camera/model.sdf -model simple_camera"
+        output="screen" />
+</launch>

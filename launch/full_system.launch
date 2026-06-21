@@ -1,0 +1,59 @@
+<launch>
+
+  <!-- ===================== -->
+  <!-- 1) Start Gazebo world -->
+  <!-- ===================== -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="true"/>
+    <arg name="paused" value="false"/>
+    <arg name="gui" value="true"/>
+  </include>
+
+  <!-- ===================== -->
+  <!-- 2) Curved road -->
+  <!-- ===================== -->
+  <include file="$(find project)/launch/spawn_curved_road.launch" />
+
+  <!-- ===================== -->
+  <!-- 3) Camera -->
+  <!-- ===================== -->
+  <node name="spawn_camera" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/simple_camera/model.sdf -model simple_camera -x 0 -y 0 -z 1.0"
+        output="screen" />
+
+  <!-- ===================== -->
+  <!-- 4) Car (SDF model) -->
+  <!-- ===================== -->
+  <node name="spawn_car" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/ackermann_car/model.sdf -model ackermann_car -x 6 -y 0 -z 0.2 -Y 0"
+        output="screen" />
+
+  <!-- ===================== -->
+  <!-- 5) Lane detector -->
+  <!-- ===================== -->
+  <node name="lane_detector_node" pkg="project" type="lane_detector.py"
+        output="screen" />
+
+  <!-- ===================== -->
+  <!-- 6) Lane controller (publishes /cmd_vel) -->
+  <!-- ===================== -->
+  <node name="lane_controller_node" pkg="project" type="lane_controller.py"
+        output="screen">
+    <param name="image_width" value="640"/>
+    <param name="speed" value="0.35"/>
+    <param name="k_angular" value="0.0025"/>
+    <param name="alpha" value="0.35"/>
+    <param name="max_ang" value="0.5"/>
+  </node>
+
+  <!-- ===================== -->
+  <!-- 7) Ackermann bridge (converts /cmd_vel to wheel+steer joints) -->
+  <!-- ===================== -->
+  <node name="ackermann_bridge_node" pkg="project" type="ackermann_bridge.py"
+        output="screen">
+    <param name="max_steer" value="0.5"/>
+    <param name="max_speed" value="7.0"/>
+    <param name="speed_gain" value="10.0"/>
+  </node>
+
+</launch>

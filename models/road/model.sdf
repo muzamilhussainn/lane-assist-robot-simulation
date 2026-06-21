@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="road">
+    <static>true</static>
+
+    <link name="road_link">
+      <pose>5 0 0 0 0 0</pose>
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>20 5 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>20 5 0.1</size>
+          </box>
+        </geometry>
+
+        <!-- FORCE texture using absolute path -->
+        <material>
+          <script>
+            <uri>file:///home/vboxuser/catkin_d/src/project/models/road/materials/scripts</uri>
+            <uri>file:///home/vboxuser/catkin_d/src/project/models/road/materials/textures</uri>
+            <name>Road/Lane</name>
+          </script>
+        </material>
+
+        <!-- Disable lighting so texture shows clearly -->
+        <lighting>false</lighting>
+      </visual>
+    </link>
+  </model>
+</sdf>
+

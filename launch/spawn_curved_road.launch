@@ -1,0 +1,23 @@
+<launch>
+  <!-- 5 segments for a smoother curve (less overlap) -->
+
+  <node name="spawn_road1" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/road/model.sdf -model road1 -x 6  -y 0.0 -z 0 -Y 0.00"
+        output="screen" />
+
+  <node name="spawn_road2" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/road/model.sdf -model road2 -x 18 -y 0.8 -z 0 -Y 0.12"
+        output="screen" />
+
+  <node name="spawn_road3" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/road/model.sdf -model road3 -x 29 -y 2.6 -z 0 -Y 0.24"
+        output="screen" />
+
+  <node name="spawn_road4" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/road/model.sdf -model road4 -x 39 -y 5.4 -z 0 -Y 0.36"
+        output="screen" />
+
+  <node name="spawn_road5" pkg="gazebo_ros" type="spawn_model"
+        args="-sdf -file $(find project)/models/road/model.sdf -model road5 -x 48 -y 9.2 -z 0 -Y 0.48"
+        output="screen" />
+</launch>

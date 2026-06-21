@@ -1,0 +1,7 @@
+<launch>
+  <node name="controller_spawner"
+        pkg="controller_manager"
+        type="spawner"
+        args="--namespace=/ackermann_car joint_state_controller ackermann_controller"
+        output="screen" />
+</launch>
