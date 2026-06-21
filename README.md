@@ -59,7 +59,7 @@ Clone this repository inside the `src` folder of a catkin workspace:
 
 ```bash
 cd ~/catkin_ws/src
-git clone <your-repository-link>
+git clone https://github.com/muzamilhussainn/lane-assist-robot-simulation.git
 cd ~/catkin_ws
 catkin_make
 source devel/setup.bash
